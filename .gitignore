@@ -1,0 +1,7 @@
+# Elixir build artifacts
+/_build/
+/deps/
+# Node modules
+frontend/node_modules/
+# Environment files
+.env
