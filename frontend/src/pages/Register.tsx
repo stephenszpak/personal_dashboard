@@ -1,21 +1,18 @@
-import React, { useState, useContext } from 'react';
-import { TextField, Button, Container } from '@mui/material';
-import { AuthContext } from '../App';
+import React, { useState } from 'react';
+import { TextField, Button, Container, Typography } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-function LoginPage() {
+const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/login', { email, password });
-      setUser(res.data.user);
-      navigate('/');
+      await axios.post('/api/register', { email, password });
+      navigate('/login');
     } catch (err) {
       console.error(err);
     }
@@ -23,15 +20,15 @@ function LoginPage() {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
-      <h2>Login</h2>
+      <Typography variant="h5" gutterBottom>Register</Typography>
       <form onSubmit={handleSubmit}>
         <TextField label="Email" value={email} onChange={e => setEmail(e.target.value)} fullWidth margin="normal" />
         <TextField label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} fullWidth margin="normal" />
-        <Button type="submit" variant="contained" sx={{ mt: 2 }}>Login</Button>
+        <Button type="submit" variant="contained" sx={{ mt: 2 }}>Register</Button>
       </form>
-      <p>Don't have an account? <Link to="/register">Register</Link></p>
+      <Typography variant="body2" sx={{ mt: 2 }}>Already have an account? <Link to="/login">Login</Link></Typography>
     </Container>
   );
-}
+};
 
-export default LoginPage;
+export default Register;
