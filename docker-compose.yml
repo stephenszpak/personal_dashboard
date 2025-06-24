@@ -1,12 +1,15 @@
 version: '3.9'
 services:
+  # Optional Postgres service for local development. Set POSTGRES_HOST=localhost
+  # in your .env file if you want to use this container instead of the hosted
+  # Render database.
   db:
     image: postgres:15
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-dashboard_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-fp_db_qunw}
     ports:
       - "5432:5432"
     volumes:
